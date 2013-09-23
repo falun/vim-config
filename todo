@@ -1,0 +1,3 @@
+1. make syntax highlighting work from repo
+2. make vimrc OS independent (currently wildignore & pathogen's infect has path definition problems)
+3. allow overrides for pathogen path so that the host vimrc can define where things live instead of being forced to mirror my home machine
