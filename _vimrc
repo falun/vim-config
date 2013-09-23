@@ -1,5 +1,5 @@
+execute pathogen#infect('~\Projects\vim-config\plugins\{}')
 cd ~\Projects
-execute pathogen#infect('~\Projects\vim\{}')
 
 set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
