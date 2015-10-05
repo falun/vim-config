@@ -6,8 +6,9 @@ set nocompatible
 " source $VIMRUNTIME/mswin.vim
 behave mswin
 
-syntax on            " turn syntax highlighting on
-colorscheme koehler  " whee colors
+syntax on              " turn syntax highlighting on
+colorscheme koehler    " whee colors
+set gfn=consolas:h10.5 " set more readable font
 
 " backspace and cursor keys wrap to previous/next line
 set backspace=indent,eol,start whichwrap+=<,>,[,]
