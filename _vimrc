@@ -36,12 +36,12 @@ vnoremap <BS> d
 "   Cut:   Shift-Del
 "   Copy:  Ctrl-Del
 "   Paste: Shift-Insert
-vnoremap <S-Del>    "+x
-vnoremap <C-Del>    "+y
-map <S-Insert>      "+gP
-cmap <S-Insert>     <C-R>+
-imap <S-Insert>     <C-V>
-vmap <S-Insert>     <C-V>
+vnoremap <S-Del>     "+x
+vnoremap <C-Del>     "+y
+noremap  <S-Insert>  "+gP
+cnoremap <S-Insert>  <C-R>+
+inoremap <S-Insert>  <C-V>
+vnoremap <S-Insert>  <C-V>
 
 " CTRL-Tab is Next window
 noremap <C-Tab> <C-W>w
@@ -50,23 +50,23 @@ cnoremap <C-Tab> <C-C><C-W>w
 onoremap <C-Tab> <C-C><C-W>w
 
 " Movement while centering cursor
-map <C-j> jzz
-map <C-k> kzz
+noremap <C-j> jzz
+noremap <C-k> kzz
 
 " Make tabs easy to navigate from center keys
-map <C-t> :tabnew<Enter>
-map tt :tabnext<Enter>
-map TT :tabprev<Enter>
+noremap <C-t> :tabnew<Enter>
+noremap tt :tabnext<Enter>
+noremap TT :tabprev<Enter>
 
 " Buffer explorer
 let g:bufExplorerDefaultHelp=0 " Do not show default help.
 " change mapping to open
-map <C-b> :BufExplorer<Enter>
+noremap <C-b> :BufExplorer<Enter>
 
 " toggle things
-map \n :set relativenumber!<Enter>
-map \p :set paste!<Enter>
-map \w :set wrap!<Enter>
+noremap \n :set relativenumber!<Enter>
+noremap \p :set paste!<Enter>
+noremap \w :set wrap!<Enter>
 
 if has("autocmd")
     filetype plugin indent on
