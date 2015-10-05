@@ -79,6 +79,12 @@ if has("autocmd")
 
     " add scala support
     au filetypedetect BufNewFile,BufRead *.scala setf scala
+
+    " json as javascript
+    au filetypedetect BufNewFile,BufRead *.json setf javascript
+
+    " make stupid build system files parse as python
+    au filetypedetect BufNewFile,BufRead *.sbs setf python
 else
     set autoindent
 endif
