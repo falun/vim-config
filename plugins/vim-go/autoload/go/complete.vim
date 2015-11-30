@@ -19,12 +19,20 @@ fu! s:gocodeCurrentBuffer()
     return file
 endf
 
-
 if go#vimproc#has_vimproc()
     let s:vim_system = get(g:, 'gocomplete#system_function', 'vimproc#system2')
+    let s:vim_shell_error = get(g:, 'gocomplete#shell_error_function', 'vimproc#get_last_status')
 else
     let s:vim_system = get(g:, 'gocomplete#system_function', 'system')
+    let s:vim_shell_error = ''
 endif
+
+fu! s:shell_error()
+    if empty(s:vim_shell_error)
+        return v:shell_error
+    endif
+    return call(s:vim_shell_error, [])
+endf
 
 fu! s:system(str, ...)
     return call(s:vim_system, [a:str] + a:000)
@@ -51,13 +59,21 @@ fu! s:gocodeCommand(cmd, preargs, args)
         let a:preargs[i] = s:gocodeShellescape(a:preargs[i])
     endfor
 
-    let bin_path = go#tool#BinPath(g:go_gocode_bin)
+    let bin_path = go#path#CheckBinPath(g:go_gocode_bin)
     if empty(bin_path)
         return
     endif
 
+    " we might hit cache problems, as gocode doesn't handle well different
+    " GOPATHS: https://github.com/nsf/gocode/issues/239
+    let old_gopath = $GOPATH
+    let $GOPATH = go#path#Detect()
+
     let result = s:system(printf('%s %s %s %s', s:gocodeShellescape(bin_path), join(a:preargs), s:gocodeShellescape(a:cmd), join(a:args)))
-    if v:shell_error != 0
+
+    let $GOPATH = old_gopath
+
+    if s:shell_error() != 0
         return "[\"0\", []]"
     else
         if &encoding != 'utf-8'
