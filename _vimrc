@@ -1,13 +1,15 @@
 execute pathogen#infect('~\Projects\vim-config\plugins\{}')
 cd ~\Projects
 
+let g:go_fmt_autosave = 0
+
 set nocompatible
 " source $VIMRUNTIME/vimrc_example.vim
 " source $VIMRUNTIME/mswin.vim
 behave mswin
 
 syntax on              " turn syntax highlighting on
-colorscheme koehler    " whee colors
+colorscheme desert     " whee colors
 set gfn=consolas:h10.5 " set more readable font
 
 " backspace and cursor keys wrap to previous/next line
@@ -27,6 +29,7 @@ set laststatus=2   " always show a status line
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " configure things to get ignored while loading files
 " let g:ctrlp_custom_ignore = '\v.*\.class|.*\\.git\\.*'
+let g:ctrlp_working_path_mode = 'rc'
 set wildignore+=*\\target\\*,**\.git\\*,*.class
 
 " backspace in Visual mode deletes selection
@@ -58,6 +61,9 @@ noremap <C-t> :tabnew<Enter>
 noremap tt :tabnext<Enter>
 noremap TT :tabprev<Enter>
 
+" Reclaim our :pop binding since <C-t> was used
+" nnoremap <C-[> <esc>:pop<cr>
+
 " Buffer explorer
 let g:bufExplorerDefaultHelp=0 " Do not show default help.
 " change mapping to open
@@ -78,14 +84,12 @@ if has("autocmd")
 
     augroup END
 
-    " add scala support
-    au filetypedetect BufNewFile,BufRead *.scala setf scala
-
-    " json as javascript
-    au filetypedetect BufNewFile,BufRead *.json setf javascript
-
-    " make stupid build system files parse as python
-    au filetypedetect BufNewFile,BufRead *.sbs setf python
+    au filetypedetect BufNewFile,BufRead *.scala setf scala     " scala!
+    au filetypedetect BufNewFile,BufRead *.json setf javascript " json as javascript
+    au filetypedetect BufNewFile,BufRead *.sbs setf python      " stupid build system files parse as python
+    au filetypedetect BufNewFile,BufRead *.md setf markdown     " md are markdown
+    au filetypedetect BufNewFile,BufRead *.service setf sh      " unit files as shell
+    au filetypedetect BufNewFile,BufRead *.genny setf go        " genny templates as go
 else
     set autoindent
 endif
